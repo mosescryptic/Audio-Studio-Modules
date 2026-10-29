@@ -17,8 +17,8 @@ Scope: finish and validate the script-side experience before native Android/Wind
 - [x] Edit the source section after creating a request; narration edits mark requests stale, and the UI checks the stored text against the current range after import.
 - [ ] Reorder sections and confirm requests still resolve by stable section ID rather than section position.
 - [x] Deleting a section retains its markers and replacement requests and marks them orphaned in the feature panel.
-- [ ] Verify captions, transcript, production markers, separate cues, and replacement requests all survive JSON export/import and draft save/load together. Caption edits now queue autosave, but the complete mixed-feature round-trip still needs manual verification.
-- [ ] Validate WebVTT and SRT exports, including empty captions, multiline text, punctuation, and timestamp formatting.
+- [x] Verify captions, transcript, production markers, separate cues, and replacement requests survive JSON export/import together (user-tested). Named-draft round-trip remains to be tested after adding the explicit draft-name field.
+- [ ] Manually validate WebVTT and SRT exports, including multiline text, punctuation, and timestamp formatting. Export now blocks malformed timestamps, non-positive cue durations, and empty caption text.
 - [ ] Check keyboard accessibility, visible focus, narrow screens, and teleprompter controls.
 - [ ] Run the complete workflow in a real browser; record the browser and test date in the release notes.
 
@@ -27,7 +27,7 @@ Scope: finish and validate the script-side experience before native Android/Wind
 ### Stage A — Data integrity and UX hardening
 
 1. [x] Add visible stale/orphaned status for replacement requests and orphaned markers.
-2. [x] Caption text and timing edits now trigger autosave; continue validating all feature panels and named-draft persistence.
+2. [x] Caption text and timing edits trigger autosave; a separate draft-name field has been added, but named-draft persistence still needs manual verification.
 3. Ensure draft save/load and autosave restore all feature data, including project settings and replacement request lifecycle fields.
 4. Make import validation explicit: reject malformed project files with a useful error and do not partially overwrite the current project.
 5. Add an in-app confirmation or recovery option before replacing an existing project on import.
@@ -38,7 +38,7 @@ Scope: finish and validate the script-side experience before native Android/Wind
 1. Keep transcript text distinct from the script; the transcript represents what was actually spoken.
 2. Support editable caption cue start/end times and text.
 3. Provide a caption segmentation helper with configurable maximum characters/words per cue; keep generated timings clearly labelled as estimates until audio alignment exists.
-4. Validate timestamps and prevent end times earlier than start times.
+4. [x] Validate timestamps and prevent end times earlier than or equal to start times during caption export.
 5. Export valid WebVTT and SRT; test special characters, multiline text, empty cues, and timestamp edge cases.
 6. Later, attach alignment provenance (manual, estimated, or engine-aligned) to each cue.
 
