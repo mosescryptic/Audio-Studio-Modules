@@ -1,6 +1,6 @@
-# Audio Studio — Script Editor + Teleprompter (Prototype v0.3)
+# Audio Studio — Script Editor + Teleprompter (Standalone Prototype v0.4)
 
-A standalone, local-first browser prototype for validating the Creator Tools workflow before native Android and Windows integration.
+A local-first browser prototype for validating the Creator Tools workflow before native Android and Windows integration.
 
 ## Try it locally
 
@@ -8,30 +8,31 @@ A standalone, local-first browser prototype for validating the Creator Tools wor
 2. Open it in a modern browser (Firefox, Chrome, Edge, or Safari).
 3. No build step, server, account, or network connection is required.
 
-## Version 0.3 features
+## Version 0.4 features
 
-- **Editable script sections:** keep intro, main content, transitions, outro, or any custom section separate.
-- **Reorder sections:** use the up/down controls to change the narration order.
-- **Separate production cues:** add pause, music, SFX, emphasis, and recording notes in a cue field attached to each section. Cue text is excluded from the clean teleprompter narration.
-- **Inline narration markers:** insert plain-text markers such as `[INTRO]`, `[MAIN POINT]`, `[PAUSE]`, and `[OUTRO]`. These remain in the narration and exports.
-- **Two export formats:** export a narration-only `.txt` file, or a production copy that includes section headings and separate cue notes.
+- **Editable script sections:** give each section a title, narration, and optional production cue.
+- **Reorder sections:** move sections up or down; teleprompter navigation can jump directly to a section or move to the previous/next section.
+- **Cue visibility:** separate production cues are excluded from narration by default, with a teleprompter toggle to show or hide them during rehearsal/production mode.
+- **Cue filtering:** filter the editor list to all sections, sections with cues, or sections without cues.
+- **Inline markers:** insert plain-text markers such as `[INTRO]`, `[MAIN POINT]`, `[PAUSE]`, and `[OUTRO]`. These remain in narration.
+- **Multiple exports:** export narration-only text, a production copy with section headings and cue notes, or a JSON project backup containing section/cue data and reading settings.
+- **Import:** import project JSON to restore sections, cues, and reading settings; import plain text and split it into sections.
 - **Local draft management:** save, load, and delete named drafts; autosave/recovery includes sections and cues.
-- **Starter templates:** video intro, podcast episode, tutorial, and product promo templates are expanded into editable sections.
+- **Starter templates:** video intro, podcast episode, tutorial, and product promo templates.
 - **Reading tools:** word/character counts, estimated duration, speaking pace, text size, line spacing, preview, and full-screen scrolling teleprompter.
 - **Keyboard controls:** Space toggles scrolling, Up/Down adjusts speed, and Escape exits the teleprompter.
 
 ## Data and privacy
 
-Drafts and recovery snapshots are stored in the current browser profile using `localStorage`. They do not sync between devices. Export files for backups or transfer. Clearing browser storage may remove local drafts.
+Named drafts and recovery snapshots are stored in the current browser profile using `localStorage`. They do not sync between devices. Export a JSON project file for portable backup or transfer. Clearing browser storage may remove local drafts.
 
 ## Current limitations
 
-This remains a standalone prototype. It does not connect to a microphone, record audio, transcribe speech, or integrate with the native Audio Studio application. Inline markers are plain text; separate production cues are structured by section but are not yet connected to recording or editing actions.
+This is still a standalone prototype. It does not connect to a microphone, record audio, transcribe speech, or integrate with the native Audio Studio application. JSON is the structured project backup format; text exports are intended for reading and production handoff.
 
-## Roadmap
+## Next stage
 
-- **v0.4:** evaluate cue filtering, section-level teleprompter navigation, and import/export format improvements.
-- **Later integration:** adapt the validated section/cue model to Audio Studio's native project architecture without coupling this browser prototype to the audio engine.
+Test the complete section workflow in the browser before designing native Android and Windows implementations. Use the validated section/cue model as the functional reference for native work.
 
 ## Project
 
