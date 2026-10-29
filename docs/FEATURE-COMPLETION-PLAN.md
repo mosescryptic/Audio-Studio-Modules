@@ -13,11 +13,11 @@ Scope: finish and validate the script-side experience before native Android/Wind
 ## Remaining validation before integration
 
 - [ ] Verify single-word replacement remains compatible with phrase replacement.
-- [x] User confirmed named-draft saving works. [ ] Verify phrase replacement survives named-draft save/load and browser autosave recovery, not just JSON export/import.
+- [x] User confirmed custom reading settings return on named-draft load and autosave recovery. [ ] Verify phrase replacement and the full mixed-feature dataset survive named-draft save/load and browser autosave recovery, not just JSON export/import.
 - [x] Edit the source section after creating a request; narration edits mark requests stale, and the UI checks the stored text against the current range after import.
 - [x] User confirmed section reordering and JSON recovery keep markers and replacement requests attached to the correct section.
 - [x] Deleting a section retains its markers and replacement requests and marks them orphaned in the feature panel.
-- [x] Verify captions, transcript, production markers, separate cues, and replacement requests survive JSON export/import together (user-tested). [x] User confirmed named-draft saving works; mixed-feature named-draft reload still needs explicit confirmation.
+- [x] User confirmed captions, transcript, production markers, separate cues, replacement requests, sections, and settings survive valid JSON import. [ ] Mixed-feature named-draft reload still needs explicit confirmation.
 - [ ] Manually validate WebVTT and SRT exports, including multiline text, punctuation, and timestamp formatting. Export blocks malformed timestamps, non-positive cue durations, and empty caption text; JSON import also rejects malformed caption times and non-positive durations.
 - [ ] Check keyboard accessibility, visible focus, narrow screens, and teleprompter controls.
 - [ ] Run the complete workflow in a real browser; record the browser and test date in the release notes.
