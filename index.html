@@ -76,7 +76,7 @@ const key='audioStudioScriptDraftsV1';
 const autoKey='audioStudioScriptAutosaveV1';
 let autoTimer=0,dirty=false;
 const safeRead=()=>{try{return JSON.parse(localStorage.getItem(key)||'{}')}catch{return {}}};
-const makeSection=(title='',text='',cue='',id='')=>{if(id){const n=Number(String(id).match(/^section-(\\d+)$/)?.[1]);if(Number.isFinite(n))sectionSeq=Math.max(sectionSeq,n);return {id,title,text,cue}}return {id:'section-'+(++sectionSeq),title,text,cue}};
+const makeSection=(title='',text='',cue='',id='')=>{if(id){const n=Number(String(id).match(/^section-(\d+)$/)?.[1]);if(Number.isFinite(n))sectionSeq=Math.max(sectionSeq,n);return {id,title,text,cue}}return {id:'section-'+(++sectionSeq),title,text,cue}};
 const narrationText=()=>sections.map(s=>s.text.trim()).filter(Boolean).join('\n\n');
 const productionText=()=>sections.map(s=>{const cue=s.cue.trim();return (s.title?'## '+s.title+'\n':'')+s.text.trim()+(cue?'\n[PRODUCTION CUE: '+cue+']':'')}).filter(x=>x.trim()).join('\n\n');
 const projectData=()=>({format:'audio-studio-script-project',version:2,title:$('title').value,sections:sections.map(({id,title,text,cue})=>({id,title,text,cue})),transcript:{text:transcriptText},captions:captions.map(x=>({...x})),productionMarkers:productionMarkers.map(x=>({...x})),replacementRequests:replacementRequests.map(x=>({...x})),settings:{pace:Number($('pace').value),font:Number($('font').value),speed:Number($('speed').value),spacing:Number($('spacing').value)},updated:new Date().toISOString()});
