@@ -28,6 +28,10 @@ A local-first browser prototype for validating the Creator Tools workflow before
 - **Starter templates and reading tools:** video intro, podcast, tutorial, product promo; word/character counts, estimated reading duration, pace, text size, line spacing, preview, and full-screen scrolling.
 - **Keyboard controls:** Space toggles scrolling, Up/Down adjusts speed, and Escape exits the teleprompter.
 
+## Named drafts
+
+The draft controls include a separate **Draft name** field. Enter a name before selecting **Save draft**; if left blank, the script title is used. Selecting an existing draft fills its saved name, and saving while that draft is selected updates it.
+
 ## Captions and transcript limitations
 
 Caption generation currently makes **estimated draft timings** from transcript length. It does not listen to audio, perform speech recognition, or align words to a recording. Check and correct all cue timings against the final audio before publishing. WebVTT is the preferred interoperable caption format for web video; SRT is provided for common editing workflows.
