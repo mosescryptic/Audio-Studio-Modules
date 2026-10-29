@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10141d">
+<title>Audio Studio — Script & Teleprompter</title>
+<style>
+:root{color-scheme:dark;--bg:#10141d;--panel:#191f2b;--panel2:#202838;--line:#303b4e;--text:#f1f4fa;--muted:#9aa8bc;--accent:#a7f3d0;--accentInk:#0c3028;--danger:#ffb4ab}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#243044 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:9px 13px;border-radius:10px}button:hover{border-color:var(--accent)}button.primary{background:var(--accent);color:var(--accentInk);border-color:var(--accent);font-weight:700}button:disabled{opacity:.4;cursor:not-allowed}.wrap{max-width:1200px;margin:auto;padding:28px 20px 48px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.brand{display:flex;gap:12px;align-items:center}.mark{width:42px;height:42px;display:grid;place-items:center;background:var(--accent);color:var(--accentInk);font-weight:900;border-radius:13px;font-size:20px}.eyebrow{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:800}.top h1{font-size:clamp(23px,4vw,34px);line-height:1.15;margin:3px 0}.tag{color:var(--muted);font-size:13px}.layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:18px}.panel{background:color-mix(in srgb,var(--panel) 94%,transparent);border:1px solid var(--line);border-radius:17px;padding:20px;min-width:0}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.panel h2{font-size:17px;margin:0}.pill{font-size:11px;color:var(--accent);border:1px solid #426e61;border-radius:999px;padding:4px 8px}.fieldlabel{display:block;color:var(--muted);font-size:12px;font-weight:700;margin:13px 0 6px}input[type=text],textarea,select{width:100%;background:#111722;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none}input:focus,textarea:focus,select:focus{border-color:var(--accent)}#script{min-height:340px;resize:vertical;line-height:1.75} .stats{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.stat{background:#111722;border:1px solid var(--line);border-radius:10px;padding:8px 11px;color:var(--muted);font-size:12px}.stat b{color:var(--text);font-size:14px;margin-right:4px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.row button{flex:0 0 auto}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.saved{display:flex;gap:8px;margin-top:12px}.saved select{flex:1;min-width:0}.hint{font-size:12px;color:var(--muted);margin:12px 0 0}.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}.control{background:#111722;border:1px solid var(--line);padding:12px;border-radius:12px}.control label{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:8px}.control output{color:var(--accent);font-weight:700}input[type=range]{width:100%;accent-color:var(--accent)}.preview{margin-top:15px;background:#0b0f16;border:1px solid var(--line);border-radius:12px;padding:16px;min-height:140px;max-height:190px;overflow:hidden;position:relative}.preview:after{content:"";position:absolute;inset:auto 0 0;height:42px;background:linear-gradient(transparent,#0b0f16);pointer-events:none}.previewtext{white-space:pre-wrap;color:#e9eef7;line-height:1.6}.previewcenter{position:absolute;top:48%;left:12px;right:12px;border-top:1px solid #a7f3d055}.full{position:fixed;inset:0;z-index:5;background:#080b11;display:none;grid-template-rows:auto 1fr auto;padding:20px clamp(16px,5vw,70px)}.full.open{display:grid}.fullhead,.fullfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.fullhead{border-bottom:1px solid #283143;padding-bottom:14px}.telecopy{overflow-y:auto;scrollbar-width:thin;max-width:1050px;width:100%;margin:0 auto;white-space:pre-wrap;line-height:1.65;color:#f4f7fb;padding:45vh 8px 50vh;align-self:stretch}.telecopy:empty:before{content:"Your script will appear here.";color:var(--muted)}.guide{position:absolute;top:50%;left:0;right:0;border-top:1px solid #a7f3d044;pointer-events:none}.status{color:var(--muted);font-size:12px}.toast{min-height:18px;color:var(--accent);font-size:12px;margin-top:8px}@media(max-width:780px){.layout{grid-template-columns:1fr}.top{align-items:flex-start}.tag{max-width:180px;text-align:right}.panel{padding:16px}#script{min-height:260px}.full{padding:14px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top"><div class="brand"><div class="mark">A</div><div><div class="eyebrow">Audio Studio · Creator tools</div><h1>Script & Teleprompter</h1><div class="tag">Standalone prototype · v0.1</div></div></div><span class="pill">LOCAL-FIRST DEMO</span></header>
+<div class="layout">
+<section class="panel">
+<div class="panelhead"><h2>01 / Write your script</h2><span class="pill">EDITOR</span></div>
+<label class="fieldlabel" for="title">Script title</label><input id="title" type="text" placeholder="e.g. Episode 01 — Introduction" maxlength="140">
+<label class="fieldlabel" for="script">Script content</label><textarea id="script" placeholder="Write or paste your narration here…"></textarea>
+<div class="stats"><div class="stat"><b id="words">0</b> words</div><div class="stat"><b id="chars">0</b> characters</div><div class="stat"><b id="duration">0:00</b> estimated read</div></div>
+<div class="actions"><button class="primary" id="open">Open teleprompter ↗</button><button id="save">Save draft</button><button id="export">Export .txt</button></div>
+<div class="saved"><select id="drafts" aria-label="Saved drafts"><option value="">Choose a saved draft…</option></select><button id="load">Load</button><button id="delete">Delete</button></div><div id="message" class="toast" role="status"></div>
+<p class="hint">Drafts are stored in this browser on this device. Export a text file for a portable backup.</p>
+</section>
+<section class="panel">
+<div class="panelhead"><h2>02 / Reading setup</h2><span class="pill">PREVIEW</span></div>
+<div class="controls">
+<div class="control"><label for="pace">Speaking pace <output id="paceOut">140 wpm</output></label><input id="pace" type="range" min="80" max="220" step="5" value="140"></div>
+<div class="control"><label for="font">Text size <output id="fontOut">42 px</output></label><input id="font" type="range" min="28" max="76" step="2" value="42"></div>
+<div class="control"><label for="speed">Scroll speed <output id="speedOut">30 px/s</output></label><input id="speed" type="range" min="10" max="120" step="5" value="30"></div>
+<div class="control"><label for="spacing">Line spacing <output id="spacingOut">1.65</output></label><input id="spacing" type="range" min="12" max="22" step="1" value="16"></div>
+</div>
+<label class="fieldlabel">Teleprompter preview</label><div class="preview"><div id="previewText" class="previewtext">Your script will appear here as you type.</div><div class="previewcenter"></div></div>
+<div class="actions"><button id="reset">Reset reading settings</button></div>
+<p class="hint">Tip: start with a slow scroll and increase it until you can read comfortably without rushing. Use the full-screen view for recording practice.</p>
+</section>
+</div>
+<p class="hint">Prototype only: no microphone or recording is connected. This is a workflow test before native Android and Windows integration.</p>
+</main>
+<section id="tele" class="full" aria-label="Teleprompter">
+<header class="fullhead"><div><div class="eyebrow">Audio Studio · Teleprompter</div><strong id="teleTitle">Untitled script</strong></div><div class="row" style="flex:0 1 auto"><button id="smaller">A−</button><button id="larger">A+</button><button id="close">Exit · Esc</button></div></header>
+<div id="teleCopy" class="telecopy" tabindex="0"></div><div class="guide"></div>
+<footer class="fullfoot"><div class="row" style="flex:0 1 auto"><button class="primary" id="play">▶ Start</button><button id="toTop">↺ Reset</button></div><div class="row" style="flex:0 1 auto;max-width:340px"><label for="teleSpeed" class="status">Scroll speed</label><input id="teleSpeed" type="range" min="10" max="120" step="5" value="30"><output id="teleSpeedOut" class="status">30 px/s</output></div><span id="runStatus" class="status">Paused · Space to play/pause · ↑/↓ speed</span></footer>
+</section>
+<script>
+(() => {
+const $=id=>document.getElementById(id);
+const ids=['title','script','pace','font','speed','spacing'];
+let frame=0,last=0,running=false;
+const key='audioStudioScriptDraftsV1';
+const safeRead=()=>{try{return JSON.parse(localStorage.getItem(key)||'{}')}catch{return {}}};
+const words=()=> $('script').value.trim()? $('script').value.trim().split(/\s+/).length:0;
+const duration=()=>{const s=Math.round(words()/Number($('pace').value)*60);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function sync(){ $('words').textContent=words();$('chars').textContent=$('script').value.length;$('duration').textContent=duration();$('paceOut').textContent=$('pace').value+' wpm';$('fontOut').textContent=$('font').value+' px';$('speedOut').textContent=$('speed').value+' px/s';$('spacingOut').textContent=(Number($('spacing').value)/10).toFixed(2);$('previewText').textContent=$('script').value||'Your script will appear here as you type.';$('previewText').style.fontSize=Math.min(Number($('font').value),42)+'px';$('previewText').style.lineHeight=Number($('spacing').value)/10;$('teleCopy').style.fontSize=$('font').value+'px';$('teleCopy').style.lineHeight=Number($('spacing').value)/10;$('teleSpeed').value=$('speed').value;$('teleSpeedOut').textContent=$('speed').value+' px/s';$('teleTitle').textContent=$('title').value||'Untitled script';$('teleCopy').textContent=$('script').value}
+function notify(s){$('message').textContent=s}
+function refresh(){const data=safeRead(),sel=$('drafts'),old=sel.value;sel.innerHTML='<option value="">Choose a saved draft…</option>';Object.keys(data).sort((a,b)=>(data[b].updated||0)-(data[a].updated||0)).forEach(id=>{const o=document.createElement('option');o.value=id;o.textContent=data[id].title||'Untitled script';sel.append(o)});if(data[old])sel.value=old}
+function save(){const data=safeRead(),id=$('drafts').value||('draft-'+Date.now());data[id]={title:$('title').value,script:$('script').value,updated:Date.now()};try{localStorage.setItem(key,JSON.stringify(data));refresh();$('drafts').value=id;notify('Draft saved in this browser.')}catch{notify('Could not save. Browser storage may be unavailable or full.')}}
+ids.forEach(id=>$(id).addEventListener('input',sync));
+$('save').onclick=save;
+$('load').onclick=()=>{const d=safeRead()[$('drafts').value];if(!d)return notify('Choose a saved draft first.');$('title').value=d.title||'';$('script').value=d.script||'';sync();notify('Draft loaded.')};
+$('delete').onclick=()=>{const id=$('drafts').value;if(!id)return notify('Choose a saved draft first.');if(!confirm('Delete this saved draft?'))return;const d=safeRead();delete d[id];localStorage.setItem(key,JSON.stringify(d));refresh();notify('Draft deleted.')};
+$('export').onclick=()=>{const blob=new Blob([($('title').value||'Untitled script')+'\n\n'+$('script').value],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=(($('title').value||'audio-studio-script').replace(/[^\w-]+/g,'-').replace(/^-|-$/g,'')||'audio-studio-script')+'.txt';a.click();URL.revokeObjectURL(url);notify('Text export prepared.')};
+function speed(v){$('speed').value=Math.max(10,Math.min(120,Number(v)));sync()}
+function stop(){running=false;cancelAnimationFrame(frame);$('play').textContent='▶ Start';$('runStatus').textContent='Paused · Space to play/pause · ↑/↓ speed'}
+function tick(t){if(!running)return;if(last){$('teleCopy').scrollTop+=Number($('teleSpeed').value)*(t-last)/1000}last=t;frame=requestAnimationFrame(tick)}
+function toggle(){if(!$('tele').classList.contains('open'))return;if(running){stop()}else{running=true;last=0;$('play').textContent='Ⅱ Pause';$('runStatus').textContent='Scrolling · Space to pause';frame=requestAnimationFrame(tick)}}
+$('open').onclick=()=>{sync();$('tele').classList.add('open');document.body.style.overflow='hidden';$('teleCopy').scrollTop=0;$('teleCopy').focus();stop()};
+$('close').onclick=()=>{$('tele').classList.remove('open');document.body.style.overflow='';stop()};
+$('play').onclick=toggle;$('toTop').onclick=()=>{$('teleCopy').scrollTop=0;stop()};
+$('teleSpeed').oninput=e=>speed(e.target.value);
+$('smaller').onclick=()=>{$('font').value=Math.max(28,Number($('font').value)-2);sync()};
+$('larger').onclick=()=>{$('font').value=Math.min(76,Number($('font').value)+2);sync()};
+$('reset').onclick=()=>{$('pace').value=140;$('font').value=42;$('speed').value=30;$('spacing').value=16;sync()};
+document.addEventListener('keydown',e=>{if(!$('tele').classList.contains('open'))return;if(e.key==='Escape')$('close').click();else if(e.code==='Space'&&e.target.tagName!=='TEXTAREA'&&e.target.tagName!=='INPUT'&&e.target.tagName!=='BUTTON'){e.preventDefault();toggle()}else if(e.key==='ArrowUp'){e.preventDefault();speed(Number($('teleSpeed').value)+5)}else if(e.key==='ArrowDown'){e.preventDefault();speed(Number($('teleSpeed').value)-5)}});
+refresh();sync();
+})();
+</script>
+</body>
+</html>
