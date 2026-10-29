@@ -18,7 +18,7 @@ Scope: finish and validate the script-side experience before native Android/Wind
 - [x] User confirmed section reordering and JSON recovery keep markers and replacement requests attached to the correct section.
 - [x] Deleting a section retains its markers and replacement requests and marks them orphaned in the feature panel.
 - [x] Verify captions, transcript, production markers, separate cues, and replacement requests survive JSON export/import together (user-tested). [x] User confirmed named-draft saving works; mixed-feature named-draft reload still needs explicit confirmation.
-- [ ] Manually validate WebVTT and SRT exports, including multiline text, punctuation, and timestamp formatting. Export now blocks malformed timestamps, non-positive cue durations, and empty caption text.
+- [ ] Manually validate WebVTT and SRT exports, including multiline text, punctuation, and timestamp formatting. Export blocks malformed timestamps, non-positive cue durations, and empty caption text; JSON import also rejects malformed caption times and non-positive durations.
 - [ ] Check keyboard accessibility, visible focus, narrow screens, and teleprompter controls.
 - [ ] Run the complete workflow in a real browser; record the browser and test date in the release notes.
 
