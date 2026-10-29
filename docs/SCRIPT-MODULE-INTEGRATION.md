@@ -1,6 +1,6 @@
 # Script Module ↔ Audio/Waveform Integration Contract
 
-Status: design contract for the standalone Script Editor + Teleprompter prototype (v0.5). This document is intentionally scoped to the **script/transcript/caption/marker side**. It does not implement audio recording or waveform editing.
+Status: design contract for the standalone Script Editor + Teleprompter prototype (v0.6). This document is intentionally scoped to the **script/transcript/caption/marker side**. It does not implement audio recording or waveform editing.
 
 ## Goals
 
@@ -75,11 +75,14 @@ The app exports a versioned JSON object similar to this:
       "id": "replacement-...",
       "sectionId": "section-1",
       "wordIndex": 1,
+      "startWordIndex": 1,
+      "endWordIndex": 1,
       "word": "to",
+      "selectedText": "to",
       "before": "Welcome",
       "after": "the show.",
       "status": "pending",
-      "strategy": "replace-word-audio-with-context-crossfade"
+      "strategy": "replace-phrase-audio-with-context-crossfade"
     }
   ],
   "settings": {
@@ -97,18 +100,18 @@ This is an illustrative contract, not a guarantee that every optional property e
 ### Stable anchors
 
 - `sections[].id` is the stable section identity. Keep it when editing/reordering a section; generate a new ID only when creating a new section.
-- `wordIndex` is a **zero-based token index within the current section text**. It is a script reference, not an audio coordinate.
+- `wordIndex` remains the legacy zero-based start index for compatibility. `startWordIndex` and `endWordIndex` define an inclusive zero-based token range within the current section text; for a single-word request they are equal. These are script references, not audio coordinates.
 - Word indices can become stale when the narration text changes. Before resolving a request, the audio side should confirm that the anchored word and surrounding context still match. If not, mark it stale and ask the user to reselect/re-anchor.
 - `productionMarkers[].anchor` is `script-section` or `script-word`; word markers include `wordIndex`.
 - Captions use start/end time strings in the current prototype, but their `timingSource` must be checked. `estimated-draft` is not aligned audio timing.
 
-## Word-level re-recording workflow
+## Word / short-phrase re-recording workflow
 
-The prototype currently supports only selecting a word and creating a pending request. The intended future workflow is:
+The prototype supports selecting a single word or a short phrase by clicking the first word and Shift-clicking the last word in the same section. It creates a pending request only; the intended future workflow is:
 
-1. **Select and anchor.** User clicks a word in the teleprompter. Store section ID, word index, selected text, and nearby context.
+1. **Select and anchor.** User clicks a word, then Shift-clicks the last word of the target phrase in the same section. Store section ID, inclusive start/end word indices, selected text, and nearby context. Keep `wordIndex` as an alias for the start index for legacy consumers.
 2. **Resolve against media.** Audio side finds the matching transcript alignment and maps the word to a time/sample interval. If there is no trusted alignment, request a manual range selection instead of guessing.
-3. **Capture context.** Play a short lead-in and tail; record a replacement phrase/word with enough context to match the speaker's timing, room tone, breath, and vocal delivery.
+3. **Capture context.** Play a short lead-in and tail; record the replacement phrase with enough context to match the speaker's timing, room tone, breath, and vocal delivery. Prefer replacing a complete short phrase when coarticulation makes a single-word cut sound unnatural.
 4. **Choose safe boundaries.** Do not cut exactly at the linguistic word boundary by default. Find low-energy/appropriate phonetic boundaries; preserve plosives, fricatives, breaths, and coarticulation.
 5. **Preview a non-destructive edit.** Create a new take/edit operation with source range, replacement range, fades, gain adjustment, and optional time-stretch settings. Keep the original take untouched.
 6. **Blend and audition.** Use short, adaptive crossfades only where they sound natural. A crossfade cannot fix mismatched pitch, room acoustics, timing, or a word whose phonemes overlap neighboring words. If needed, record a longer phrase rather than a single word.
@@ -162,6 +165,6 @@ The prototype supports pause, emphasis, music, sound effect, retake, chapter/seg
 - [ ] Editing text that invalidates a selected word causes the request to be revalidated or marked stale.
 - [ ] SRT/WebVTT exports contain real line breaks and valid time syntax.
 - [ ] Estimated caption timings are visibly identified as draft.
-- [ ] Selecting a word creates only an intent/anchor; no audio is changed.
-- [ ] The native audio module resolves anchors only against trusted alignment/media data.
+- [ ] Selecting a word or phrase creates only an intent/anchor; no audio is changed.
+- [ ] The native audio module resolves inclusive start/end anchors only against trusted alignment/media data.
 - [ ] Replacement previews preserve the original take and support undo/A-B comparison.
