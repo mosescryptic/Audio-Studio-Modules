@@ -67,7 +67,9 @@ The app exports a versioned JSON object similar to this:
       "note": "Short pause",
       "sectionId": "section-1",
       "anchor": "script-section",
+      "status": "script-anchored",
       "createdAt": "ISO-8601 timestamp"
+
     }
   ],
   "replacementRequests": [
@@ -101,8 +103,8 @@ This is an illustrative contract, not a guarantee that every optional property e
 
 - `sections[].id` is the stable section identity. Keep it when editing/reordering a section; generate a new ID only when creating a new section.
 - `wordIndex` remains the legacy zero-based start index for compatibility. `startWordIndex` and `endWordIndex` define an inclusive zero-based token range within the current section text; for a single-word request they are equal. These are script references, not audio coordinates.
-- Word indices can become stale when the narration text changes. Before resolving a request, the audio side should confirm that the anchored word and surrounding context still match. If not, mark it stale and ask the user to reselect/re-anchor.
-- `productionMarkers[].anchor` is `script-section` or `script-word`; word markers include `wordIndex`.
+- Word indices can become stale when narration changes. The prototype compares the selected text and saved nearby context with the current section text, and flags mismatches as stale. The audio side must independently validate the anchor against the current transcript/alignment before resolving it; stale anchors require user review/reselection.
+- `productionMarkers[].anchor` is `script-section` or `script-word`; word markers include `wordIndex`, `anchorText`, and nearby `contextBefore`/`contextAfter` when created by the current prototype. `status` starts as `script-anchored`; the UI displays `stale` if the current token/context no longer matches and `orphaned` if the section no longer exists. Legacy word markers without context remain readable, but only fields present in the record can be verified.
 - Captions use start/end time strings in the current prototype, but their `timingSource` must be checked. `estimated-draft` is not aligned audio timing.
 
 ## Word / short-phrase re-recording workflow
@@ -162,7 +164,7 @@ The prototype supports pause, emphasis, music, sound effect, retake, chapter/seg
 
 - [ ] JSON export → import preserves section IDs, cues, transcript, captions, markers, replacement requests, and reading settings.
 - [ ] Reordering sections does not change their IDs.
-- [ ] Editing text that invalidates a selected word causes the request to be revalidated or marked stale.
+- [ ] Editing text that invalidates a selected word or its nearby context causes the request/marker to be revalidated or marked stale.
 - [ ] SRT/WebVTT exports contain real line breaks and valid time syntax.
 - [ ] Estimated caption timings are visibly identified as draft.
 - [ ] Selecting a word or phrase creates only an intent/anchor; no audio is changed.
