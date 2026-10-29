@@ -26,7 +26,7 @@ Scope: finish and validate the script-side experience before native Android/Wind
 
 ### Stage A — Data integrity and UX hardening
 
-1. [x] Add visible stale/orphaned status for replacement requests and orphaned markers.
+1. [x] Add visible stale/orphaned status for replacement requests and markers; word markers store token/context anchors and are flagged stale when the current text no longer matches.
 2. [x] Caption text and timing edits trigger autosave; a separate draft-name field has been added, but named-draft persistence still needs manual verification.
 3. Ensure draft save/load and autosave restore all feature data, including project settings and replacement request lifecycle fields.
 4. Make import validation explicit: reject malformed project files with a useful error and do not partially overwrite the current project.
@@ -48,12 +48,12 @@ Scope: finish and validate the script-side experience before native Android/Wind
 2. Define a stable marker schema: ID, type, note, section ID, optional inclusive start/end word indices, and optional future media/time anchor.
 3. Support marker types such as intro, outro, pause, emphasis, music, sound effect, retake, pickup, and editor note.
 4. Clearly label script-anchored markers as not yet audio-timed.
-5. Ensure section reorder preserves anchors by ID and section deletion produces an explicit orphan state.
+5. [x] Ensure section reorder preserves anchors by ID and section deletion produces an explicit orphan state. Word-marker token/context mismatch is displayed as stale.
 
 ### Stage D — Phrase replacement handoff
 
-1. Keep the request non-destructive and store the original selected text, inclusive start/end word indices, nearby context, and a stable section ID.
-2. Store a source-text fingerprint or revision identifier so the audio side can detect when the selected text has changed.
+1. [x] Keep the request non-destructive and store the original selected text, inclusive start/end word indices, nearby context, and a stable section ID.
+2. Store a source-text fingerprint or revision identifier so the audio side can detect when the selected text has changed. The current prototype validates selected text and local context at render time; a project-wide fingerprint/revision remains a future enhancement.
 3. Use a lifecycle such as pending, recorded, ready_for_review, approved, cancelled, and stale. Do not imply recording or blending has happened in this browser prototype.
 4. On the audio side, resolve text anchors using transcript alignment and actual media metadata; never convert word indices directly into sample offsets.
 5. Record a new take without modifying the original; retain links to source take, replacement take, and edit operation.
