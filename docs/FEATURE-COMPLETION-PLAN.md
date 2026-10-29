@@ -14,10 +14,10 @@ Scope: finish and validate the script-side experience before native Android/Wind
 
 - [ ] Verify single-word replacement remains compatible with phrase replacement.
 - [ ] Verify phrase replacement survives named-draft save/load and browser autosave recovery, not just JSON export/import.
-- [ ] Edit the source section after creating a request; confirm the request becomes stale and is not silently treated as valid.
+- [x] Edit the source section after creating a request; narration edits mark requests stale, and the UI checks the stored text against the current range after import.
 - [ ] Reorder sections and confirm requests still resolve by stable section ID rather than section position.
-- [ ] Verify deleting a section does not silently lose requests; show an orphaned/stale state and provide a clear recovery path.
-- [ ] Verify captions, transcript, production markers, separate cues, and replacement requests all survive JSON export/import and draft save/load together.
+- [x] Deleting a section retains its markers and replacement requests and marks them orphaned in the feature panel.
+- [ ] Verify captions, transcript, production markers, separate cues, and replacement requests all survive JSON export/import and draft save/load together. Caption edits now queue autosave, but the complete mixed-feature round-trip still needs manual verification.
 - [ ] Validate WebVTT and SRT exports, including empty captions, multiline text, punctuation, and timestamp formatting.
 - [ ] Check keyboard accessibility, visible focus, narrow screens, and teleprompter controls.
 - [ ] Run the complete workflow in a real browser; record the browser and test date in the release notes.
@@ -26,8 +26,8 @@ Scope: finish and validate the script-side experience before native Android/Wind
 
 ### Stage A — Data integrity and UX hardening
 
-1. Add a visible status and explanation for stale/orphaned replacement requests.
-2. Make caption/transcript/marker changes consistently trigger autosave and draft persistence.
+1. [x] Add visible stale/orphaned status for replacement requests and orphaned markers.
+2. [x] Caption text and timing edits now trigger autosave; continue validating all feature panels and named-draft persistence.
 3. Ensure draft save/load and autosave restore all feature data, including project settings and replacement request lifecycle fields.
 4. Make import validation explicit: reject malformed project files with a useful error and do not partially overwrite the current project.
 5. Add an in-app confirmation or recovery option before replacing an existing project on import.
