@@ -153,7 +153,7 @@ The prototype supports pause, emphasis, music, sound effect, retake, chapter/seg
 
 1. Use the same logical project schema in Kotlin and C#; do not make browser DOM structures part of the data contract.
 2. Keep shared script/transcript/marker rules platform-independent. Keep recording and DSP in the existing native audio-engine boundary.
-3. Treat imports as untrusted data: validate project shape/version, unique section IDs, metadata array shapes, timestamps, and references before applying. Reject invalid imports without mutating the current project.
+3. Treat imports as untrusted data: validate project shape/version, unique section IDs, metadata array shapes, caption timestamp syntax/duration, and references before applying. Reject invalid imports without mutating the current project. Empty caption text may be preserved as an unfinished draft cue, but export must reject it until completed.
 4. Preserve stable section IDs during edits and migrations.
 5. Use explicit project schema migrations instead of silently changing the meaning of existing fields.
 6. Store media separately from script metadata. A script project can reference media IDs owned by the audio project, but must not embed large audio data in JSON.
