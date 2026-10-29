@@ -15,7 +15,7 @@ Scope: finish and validate the script-side experience before native Android/Wind
 - [ ] Verify single-word replacement remains compatible with phrase replacement.
 - [x] User confirmed named-draft saving works. [ ] Verify phrase replacement survives named-draft save/load and browser autosave recovery, not just JSON export/import.
 - [x] Edit the source section after creating a request; narration edits mark requests stale, and the UI checks the stored text against the current range after import.
-- [ ] Reorder sections and confirm requests still resolve by stable section ID rather than section position.
+- [x] User confirmed section reordering and JSON recovery keep markers and replacement requests attached to the correct section.
 - [x] Deleting a section retains its markers and replacement requests and marks them orphaned in the feature panel.
 - [x] Verify captions, transcript, production markers, separate cues, and replacement requests survive JSON export/import together (user-tested). [x] User confirmed named-draft saving works; mixed-feature named-draft reload still needs explicit confirmation.
 - [ ] Manually validate WebVTT and SRT exports, including multiline text, punctuation, and timestamp formatting. Export now blocks malformed timestamps, non-positive cue durations, and empty caption text.
@@ -28,9 +28,9 @@ Scope: finish and validate the script-side experience before native Android/Wind
 
 1. [x] Add visible stale/orphaned status for replacement requests and markers; word markers store token/context anchors and are flagged stale when the current text no longer matches.
 2. [x] Caption text and timing edits trigger autosave; a separate draft-name field has been added, but named-draft persistence still needs manual verification.
-3. Ensure draft save/load and autosave restore all feature data, including project settings and replacement request lifecycle fields.
-4. Make import validation explicit: reject malformed project files with a useful error and do not partially overwrite the current project.
-5. Add an in-app confirmation or recovery option before replacing an existing project on import.
+3. [x] Ensure named-draft save/load and autosave recovery preserve sections, transcript, captions, markers, replacement requests, and reading settings.
+4. [x] Validate project shape/version, unique section IDs, and metadata array shapes before applying import; rejected imports leave the current project unchanged.
+5. [x] Confirm before importing over any current script or associated metadata.
 6. Ensure selected phrase state is cleared or safely restored when the section text changes.
 
 ### Stage B — Transcript and captions
