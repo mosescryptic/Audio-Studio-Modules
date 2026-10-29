@@ -13,11 +13,11 @@ Scope: finish and validate the script-side experience before native Android/Wind
 ## Remaining validation before integration
 
 - [ ] Verify single-word replacement remains compatible with phrase replacement.
-- [ ] Verify phrase replacement survives named-draft save/load and browser autosave recovery, not just JSON export/import.
+- [x] User confirmed named-draft saving works. [ ] Verify phrase replacement survives named-draft save/load and browser autosave recovery, not just JSON export/import.
 - [x] Edit the source section after creating a request; narration edits mark requests stale, and the UI checks the stored text against the current range after import.
 - [ ] Reorder sections and confirm requests still resolve by stable section ID rather than section position.
 - [x] Deleting a section retains its markers and replacement requests and marks them orphaned in the feature panel.
-- [x] Verify captions, transcript, production markers, separate cues, and replacement requests survive JSON export/import together (user-tested). Named-draft round-trip remains to be tested after adding the explicit draft-name field.
+- [x] Verify captions, transcript, production markers, separate cues, and replacement requests survive JSON export/import together (user-tested). [x] User confirmed named-draft saving works; mixed-feature named-draft reload still needs explicit confirmation.
 - [ ] Manually validate WebVTT and SRT exports, including multiline text, punctuation, and timestamp formatting. Export now blocks malformed timestamps, non-positive cue durations, and empty caption text.
 - [ ] Check keyboard accessibility, visible focus, narrow screens, and teleprompter controls.
 - [ ] Run the complete workflow in a real browser; record the browser and test date in the release notes.
@@ -37,7 +37,7 @@ Scope: finish and validate the script-side experience before native Android/Wind
 
 1. Keep transcript text distinct from the script; the transcript represents what was actually spoken.
 2. Support editable caption cue start/end times and text.
-3. Provide a caption segmentation helper with configurable maximum characters/words per cue; keep generated timings clearly labelled as estimates until audio alignment exists.
+3. [x] Provide a configurable maximum-word caption segmentation helper (3–30 words per cue); generated timings remain labelled as estimates until audio alignment exists.
 4. [x] Validate timestamps and prevent end times earlier than or equal to start times during caption export.
 5. Export valid WebVTT and SRT; test special characters, multiline text, empty cues, and timestamp edge cases.
 6. Later, attach alignment provenance (manual, estimated, or engine-aligned) to each cue.
