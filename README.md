@@ -1,34 +1,38 @@
-# Audio Studio — Script Editor + Teleprompter (Prototype v0.2)
+# Audio Studio — Script Editor + Teleprompter (Prototype v0.3)
 
-A standalone browser prototype to validate the Creator Tools workflow before native Android and Windows implementation.
+A standalone, local-first browser prototype for validating the Creator Tools workflow before native Android and Windows integration.
 
 ## Try it locally
 
-Download `index.html` and open it in a modern browser (Firefox, Chrome, Edge, Safari). No package manager or server is required after download.
+1. Open or download [`index.html`](./index.html).
+2. Open it in a modern browser (Firefox, Chrome, Edge, or Safari).
+3. No build step, server, account, or network connection is required.
 
-## Included
+## Version 0.3 features
 
-- Script title and editor
-- Live word count, character count, and estimated read duration
-- Configurable speaking pace, teleprompter font size, line spacing, and scroll speed
-- Full-screen teleprompter with start/pause/reset and keyboard controls: `Space`, `Up`/`Down`, `Esc`
-- Named script drafts: save, load, and delete
-- Automatic local recovery snapshot while editing
-- Starter templates for video, podcast, tutorial, and product promo scripts
-- Insertable production markers for intro, main point, pause, and outro
-- Export the current script as plain text
+- **Editable script sections:** keep intro, main content, transitions, outro, or any custom section separate.
+- **Reorder sections:** use the up/down controls to change the narration order.
+- **Separate production cues:** add pause, music, SFX, emphasis, and recording notes in a cue field attached to each section. Cue text is excluded from the clean teleprompter narration.
+- **Inline narration markers:** insert plain-text markers such as `[INTRO]`, `[MAIN POINT]`, `[PAUSE]`, and `[OUTRO]`. These remain in the narration and exports.
+- **Two export formats:** export a narration-only `.txt` file, or a production copy that includes section headings and separate cue notes.
+- **Local draft management:** save, load, and delete named drafts; autosave/recovery includes sections and cues.
+- **Starter templates:** video intro, podcast episode, tutorial, and product promo templates are expanded into editable sections.
+- **Reading tools:** word/character counts, estimated duration, speaking pace, text size, line spacing, preview, and full-screen scrolling teleprompter.
+- **Keyboard controls:** Space toggles scrolling, Up/Down adjusts speed, and Escape exits the teleprompter.
 
-## Storage and privacy
+## Data and privacy
 
-Drafts and the recovery snapshot are stored in the current browser profile using local storage. They are not synced to GitHub or other devices. Browser privacy settings and local-file restrictions can affect storage. Use **Save draft** and **Export .txt** for extra copies.
+Drafts and recovery snapshots are stored in the current browser profile using `localStorage`. They do not sync between devices. Export files for backups or transfer. Clearing browser storage may remove local drafts.
 
 ## Current limitations
 
-This is a workflow prototype only. It does not connect to a microphone, record audio, transcribe speech, or integrate with the native Android/Windows applications. Production markers are plain text labels; they do not yet drive timeline actions.
+This remains a standalone prototype. It does not connect to a microphone, record audio, transcribe speech, or integrate with the native Audio Studio application. Inline markers are plain text; separate production cues are structured by section but are not yet connected to recording or editing actions.
 
-## Next development steps
+## Roadmap
 
-1. Test autosave recovery, templates, and markers in your target browser.
-2. Add editable named sections and reorderable script blocks if the workflow feels right.
-3. Define a platform-neutral script data model before native Kotlin and WinUI 3 implementations.
-4. Keep platform UI and teleprompter scrolling separate from Audio Studio's shared C++ audio-processing core unless shared logic is actually needed.
+- **v0.4:** evaluate cue filtering, section-level teleprompter navigation, and import/export format improvements.
+- **Later integration:** adapt the validated section/cue model to Audio Studio's native project architecture without coupling this browser prototype to the audio engine.
+
+## Project
+
+[Audio Studio Modules repository](https://github.com/mosescryptic/Audio-Studio-Modules)
