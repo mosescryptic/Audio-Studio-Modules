@@ -23,7 +23,7 @@ A local-first browser prototype for validating the Creator Tools workflow before
 - **Stale/orphan protection:** editing narration marks replacement requests stale; the UI checks both selected text and nearby context against the current script range after import. Word-anchored production markers also store the anchored token and nearby context and display as stale if the anchor no longer matches. Deleting a section retains its markers and replacement requests and marks them orphaned rather than silently discarding them. Reordering sections keeps anchors attached to stable section IDs.
 - **Caption autosave:** editing caption text or timing now queues a local autosave.
 - **Multiple project exports:** narration-only `.txt`, production copy `.txt`, and structured project `.json`.
-- **Import:** import JSON project data or plain text split into sections. JSON import validates project shape, supported version, unique section IDs, and metadata arrays before changing the current project; failed validation leaves the current project untouched.
+- **Import:** import JSON project data or plain text split into sections. JSON import validates project shape, supported version, unique section IDs, metadata arrays, and caption timestamp syntax/duration before changing the current project. User manually confirmed malformed JSON is rejected with a message stating the current project was not changed; duplicate-section-ID rejection still needs manual verification.
 - **Local draft management:** save/load/delete named drafts; named drafts and autosave/recovery preserve sections, transcript, captions, markers, replacement requests, and reading settings.
 - **Starter templates and reading tools:** video intro, podcast, tutorial, product promo; word/character counts, estimated reading duration, pace, text size, line spacing, preview, and full-screen scrolling.
 - **Keyboard controls:** Space toggles scrolling, Up/Down adjusts speed, and Escape exits the teleprompter.
@@ -59,7 +59,7 @@ Named drafts and recovery snapshots are stored in the current browser profile us
 
 ## Completion and validation plan
 
-Named-draft settings reload, autosave settings recovery, and valid mixed-feature JSON import have been user-tested. Malformed-import rejection is still awaiting manual verification. JSON import now validates caption timestamp syntax and positive cue duration as well as project structure; next, test malformed JSON/duplicate section IDs, then validate SRT/WebVTT exports and run the full browser workflow before native integration. See the [feature completion plan](./docs/FEATURE-COMPLETION-PLAN.md) for the release checklist and audio-side handoff requirements.
+Named-draft settings reload, autosave settings recovery, valid mixed-feature JSON import, and malformed-JSON rejection have been user-tested. The malformed-JSON import displayed an error and explicitly stated the current project was unchanged. Duplicate-section-ID rejection still needs manual verification. JSON import validates caption timestamp syntax and positive cue duration as well as project structure; next, test duplicate IDs, then validate SRT/WebVTT exports and run the full browser workflow before native integration. See the [feature completion plan](./docs/FEATURE-COMPLETION-PLAN.md) for the release checklist and audio-side handoff requirements.
 
 ## Recommended integration order
 
