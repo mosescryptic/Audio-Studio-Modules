@@ -151,6 +151,7 @@ $('importFile').addEventListener('change',async e=>{
    if(d.replacementRequests!==undefined&&!Array.isArray(d.replacementRequests))throw new Error('Replacement requests must be an array.');
    nextCaptions=d.captions||[];nextMarkers=d.productionMarkers||[];nextRequests=d.replacementRequests||[];
    if(nextCaptions.some(c=>!c||typeof c!=='object'||Array.isArray(c)||typeof c.text!=='string'||typeof c.start!=='string'||typeof c.end!=='string'))throw new Error('Each caption needs text, start, and end fields.');
+    nextCaptions.forEach((c,i)=>{const start=parseTime(c.start),end=parseTime(c.end);if(start===null||end===null)throw new Error('Caption '+(i+1)+' has an invalid timestamp. Use MM:SS.mmm or HH:MM:SS.mmm.');if(end<=start)throw new Error('Caption '+(i+1)+' must end after it starts.');});
    if(nextMarkers.some(m=>!m||typeof m!=='object'||Array.isArray(m)))throw new Error('Each production marker must be an object.');
    if(nextRequests.some(r=>!r||typeof r!=='object'||Array.isArray(r)))throw new Error('Each replacement request must be an object.');
    nextTitle=typeof d.title==='string'&&d.title.trim()?d.title:nextTitle;
