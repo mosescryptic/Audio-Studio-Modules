@@ -5,6 +5,8 @@ Scope: finish and validate the script-side experience before native Android/Wind
 
 ## Confirmed by manual testing
 
+- [x] User imported malformed JSON; the importer displayed a parse error and explicitly reported that the current project was not changed.
+
 - [x] Short phrase can be selected in the teleprompter by clicking the first word and Shift-clicking the last word in the same section.
 - [x] Selected phrase can be saved as a replacement request.
 - [x] JSON export/import preserves the phrase selection and request data.
@@ -29,7 +31,7 @@ Scope: finish and validate the script-side experience before native Android/Wind
 1. [x] Add visible stale/orphaned status for replacement requests and markers; word markers store token/context anchors and are flagged stale when the current text no longer matches.
 2. [x] Caption text and timing edits trigger autosave; a separate draft-name field has been added, but named-draft persistence still needs manual verification.
 3. [x] Ensure named-draft save/load and autosave recovery preserve sections, transcript, captions, markers, replacement requests, and reading settings.
-4. [x] Validate project shape/version, unique section IDs, and metadata array shapes before applying import; rejected imports leave the current project unchanged.
+4. [x] Validate project shape/version, unique section IDs, metadata array shapes, and caption timing before applying import; user confirmed malformed JSON is rejected without changing the current project. [ ] Manually test duplicate section IDs.
 5. [x] Confirm before importing over any current script or associated metadata.
 6. Ensure selected phrase state is cleared or safely restored when the section text changes.
 
