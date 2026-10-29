@@ -20,6 +20,8 @@ A local-first browser prototype for validating the Creator Tools workflow before
 - **Caption drafts:** generate editable caption cues from transcript sentences, manually adjust each cue's start/end times and text, and export SubRip (`.srt`) or WebVTT (`.vtt`).
 - **Word and phrase selection:** click a word, then Shift-click another word in the same section to highlight a short phrase. Create replacement requests for either one word or a phrase, including stable section ID, zero-based start/end word indices, selected text, and neighboring context.
 - **Replacement intent export:** JSON projects preserve the selected word/phrase, section ID, zero-based start/end word indices, neighboring context, pending status, and phrase-capable replacement strategy for later waveform-side implementation. Existing single-word requests remain readable through the legacy `word` and `wordIndex` fields.
+- **Stale/orphan protection:** editing narration marks replacement requests stale; the UI also checks selected text against the current script range after import. Deleting a section retains its anchored markers and replacement requests and marks them orphaned rather than silently discarding them.
+- **Caption autosave:** editing caption text or timing now queues a local autosave.
 - **Multiple project exports:** narration-only `.txt`, production copy `.txt`, and structured project `.json`.
 - **Import:** import JSON project data or plain text split into sections. JSON imports preserve section IDs, transcript, captions, markers, replacement requests, and reading settings.
 - **Local draft management:** save/load/delete named drafts; autosave/recovery includes the expanded metadata.
