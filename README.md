@@ -20,7 +20,7 @@ A local-first browser prototype for validating the Creator Tools workflow before
 - **Caption drafts:** generate editable caption cues from transcript text, choose a maximum of 3–30 words per cue, manually adjust each cue's start/end times and text, and export SubRip (`.srt`) or WebVTT (`.vtt`). Generated timing is an estimate, not audio alignment.
 - **Word and phrase selection:** click a word, then Shift-click another word in the same section to highlight a short phrase. Create replacement requests for either one word or a phrase, including stable section ID, zero-based start/end word indices, selected text, and neighboring context.
 - **Replacement intent export:** JSON projects preserve the selected word/phrase, section ID, zero-based start/end word indices, neighboring context, pending status, and phrase-capable replacement strategy for later waveform-side implementation. Existing single-word requests remain readable through the legacy `word` and `wordIndex` fields.
-- **Stale/orphan protection:** editing narration marks replacement requests stale; the UI also checks selected text against the current script range after import. Deleting a section retains its anchored markers and replacement requests and marks them orphaned rather than silently discarding them.
+- **Stale/orphan protection:** editing narration marks replacement requests stale; the UI checks both selected text and nearby context against the current script range after import. Word-anchored production markers also store the anchored token and nearby context and display as stale if the anchor no longer matches. Deleting a section retains its markers and replacement requests and marks them orphaned rather than silently discarding them. Reordering sections keeps anchors attached to stable section IDs.
 - **Caption autosave:** editing caption text or timing now queues a local autosave.
 - **Multiple project exports:** narration-only `.txt`, production copy `.txt`, and structured project `.json`.
 - **Import:** import JSON project data or plain text split into sections. JSON imports preserve section IDs, transcript, captions, markers, replacement requests, and reading settings.
@@ -59,7 +59,7 @@ Named drafts and recovery snapshots are stored in the current browser profile us
 
 ## Completion and validation plan
 
-The next work is to harden persistence and stale-anchor handling, validate transcript/caption exports and production markers, and run the full workflow in a real browser before native integration. See the [feature completion plan](./docs/FEATURE-COMPLETION-PLAN.md) for the release checklist and audio-side handoff requirements.
+The next work is to finish persistence/import hardening, validate transcript/caption exports and marker lifecycle behavior, and run the full workflow in a real browser before native integration. See the [feature completion plan](./docs/FEATURE-COMPLETION-PLAN.md) for the release checklist and audio-side handoff requirements.
 
 ## Recommended integration order
 
