@@ -51,6 +51,10 @@ Named drafts and recovery snapshots are stored in the current browser profile us
 - No collaboration or cross-device sync.
 - This is a browser workflow prototype, not yet the native Android or Windows UI.
 
+## Completion and validation plan
+
+The next work is to harden persistence and stale-anchor handling, validate transcript/caption exports and production markers, and run the full workflow in a real browser before native integration. See the [feature completion plan](./docs/FEATURE-COMPLETION-PLAN.md) for the release checklist and audio-side handoff requirements.
+
 ## Recommended integration order
 
 1. Validate section editing, save/load, JSON round-trip, cue visibility, transcript/caption editing, and word selection in the browser.
