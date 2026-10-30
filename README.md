@@ -32,6 +32,10 @@ A local-first browser prototype for validating the Creator Tools workflow before
 
 The draft controls include a separate **Draft name** field. Enter a name before selecting **Save draft**; if left blank, the script title is used. Selecting an existing draft fills its saved name, and saving while that draft is selected updates it.
 
+## Teleprompter scrolling
+
+The animation loop accumulates fractional pixel movement before applying whole-pixel scroll updates. This preserves slow speeds on browsers that round sub-pixel `scrollTop` changes, instead of allowing low-speed movement to disappear. The low-speed fix still needs manual browser verification.
+
 ## Captions and transcript limitations
 
 Caption generation currently makes **estimated draft timings** from transcript length. It does not listen to audio, perform speech recognition, or align words to a recording. Check and correct all cue timings against the final audio before publishing. WebVTT is the preferred interoperable caption format for web video; SRT is provided for common editing workflows.
