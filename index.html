@@ -22,12 +22,20 @@
 .tele-run-status{grid-area:status;min-width:0}
 .time-invalid{border-color:var(--danger)!important;outline:1px solid var(--danger)}
 @media(max-width:780px){.full{padding:10px 12px}.fullfoot{grid-template-columns:minmax(0,1fr);grid-template-areas:"main" "speed" "selection" "status";gap:9px;max-height:43vh;padding-bottom:max(10px,env(safe-area-inset-bottom))}.tele-controls-main{gap:6px}.tele-nav{width:100%}.tele-nav select{flex:1;max-width:none;min-width:0}.tele-controls-speed{grid-template-columns:auto minmax(80px,1fr) auto}.tele-selection{align-items:flex-start}.selected-word-bar{min-width:0;flex:1 1 100%}.tele-selection button{width:100%}}
+
+.workspace-nav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px;padding:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;position:sticky;top:0;z-index:2}
+.workspace-nav button{flex:1 1 150px;background:transparent;border-color:transparent;color:var(--muted)}
+.workspace-nav button.active{background:var(--accent);border-color:var(--accent);color:var(--accentInk);font-weight:800}
+.workspace-screen{display:none;min-width:0}
+.workspace-screen.active{display:block}
+#transcriptScreen,#productionScreen{max-width:1200px;margin:0 auto}
 </style>
 </head>
 <body>
 <main class="wrap">
 <header class="top"><div class="brand"><div class="mark">A</div><div><div class="eyebrow">Audio Studio · Creator tools</div><h1>Script & Teleprompter</h1><div class="tag">Standalone prototype · v0.6</div></div></div><span class="pill">LOCAL-FIRST DEMO</span></header>
-<div class="layout">
+<nav class="workspace-nav" aria-label="Audio Studio workspaces"><button type="button" class="active" data-workspace="scriptScreen" aria-pressed="true">01 · Scripts</button><button type="button" data-workspace="transcriptScreen" aria-pressed="false">02 · Transcript & captions</button><button type="button" data-workspace="productionScreen" aria-pressed="false">03 · Production</button></nav>
+<section id="scriptScreen" class="workspace-screen active"><div class="layout">
 <section class="panel">
 <div class="panelhead"><h2>01 / Write your script</h2><span class="pill">EDITOR</span></div>
 <label class="fieldlabel" for="title">Script title</label><input id="title" type="text" placeholder="e.g. Episode 01 — Introduction" maxlength="140">
@@ -52,9 +60,8 @@
 <div class="actions"><button id="reset">Reset reading settings</button></div>
 <p class="hint">Tip: start with a slow scroll and increase it until you can read comfortably without rushing. Use the full-screen view for recording practice.</p>
 </section>
-</div>
-<section class="feature-grid" aria-label="Transcript, captions and production markers">
-<section class="feature-panel">
+</div></section>
+<section id="transcriptScreen" class="feature-panel workspace-screen">
  <div class="feature-head"><h2>03 / Transcript & captions</h2><span class="pill">TEXT + TIMING</span></div>
  <p class="small-note">Keep an editable transcript beside the script. Caption timing is draft/manual until aligned to a real recording. Generate a starter caption track, then adjust times.</p>
  <label class="fieldlabel" for="transcriptText">Transcript text</label><textarea id="transcriptText" placeholder="Paste or edit the words actually spoken…"></textarea>
@@ -62,7 +69,7 @@
  <div class="feature-actions"><button id="exportSrt">Export .srt</button><button id="exportVtt">Export .vtt</button></div>
  <div class="small-note" id="captionStatus" aria-live="polite">No caption cues yet.</div><div id="captionList" class="caption-list"></div>
 </section>
-<section class="feature-panel">
+<section id="productionScreen" class="feature-panel workspace-screen">
  <div class="feature-head"><h2>04 / Production markers</h2><span class="pill">AUDIO-SIDE HANDOFF</span></div>
  <p class="small-note">Markers are anchored to script sections/word positions, not audio time. Word markers save the anchored token and nearby context; if text edits invalidate that anchor, the marker is flagged stale for review. Section reordering preserves section IDs.</p>
  <div class="row"><div><label class="fieldlabel" for="markerType">Marker type</label><select id="markerType"><option value="pause">Pause</option><option value="emphasis">Emphasis</option><option value="music">Music</option><option value="sfx">Sound effect</option><option value="retake">Retake</option><option value="chapter">Chapter / segment</option><option value="caption-break">Caption break</option><option value="intro">Intro</option><option value="outro">Outro</option></select></div><div><label class="fieldlabel" for="markerNote">Note</label><input id="markerNote" type="text" placeholder="e.g. short pause before key line"></div></div>
@@ -71,7 +78,6 @@
  <div class="feature-head" style="margin-top:22px"><h2>Word / phrase replacement requests</h2><span class="pill">PLANNED AUDIO WORKFLOW</span></div>
  <p class="small-note">Click the first word, then Shift-click the last word to select a short phrase in the same section. Mark it for re-recording. This saves the exact text range and surrounding context; it does not record or blend audio in this prototype.</p>
  <div id="replacementList" class="replacement-list"></div>
-</section>
 </section>
 <p class="hint">Prototype only: no microphone or recording is connected. Transcript alignment, recording, waveform edits, crossfades and audio blending are not implemented here.</p>
 </main>
@@ -224,6 +230,7 @@ $('addProductionMarker').onclick=()=>{addMarker($('markerType').value,$('markerN
 $('addMarkerAtWord').onclick=()=>{if(!selectedWord)return notify('Select a word in the teleprompter first.');addMarker($('markerType').value,$('markerNote').value,selectedWord.sectionId,selectedWord.wordIndex);notify('Production marker anchored to selected script word.')};
 $('requestReplacement').onclick=()=>{if(!selectedWord)return notify('Click a word in the teleprompter first.');const sec=sections.find(s=>s.id===selectedWord.sectionId);if(!sec)return;const tokens=sec.text.trim().split(/\s+/).filter(Boolean),start=selectedWord.startWordIndex??selectedWord.wordIndex,end=selectedWord.endWordIndex??selectedWord.wordIndex,phrase=tokens.slice(start,end+1).join(' '),before=tokens.slice(Math.max(0,start-5),start).join(' '),after=tokens.slice(end+1,end+6).join(' ');replacementRequests.push({id:'replacement-'+Date.now()+'-'+(++replacementSeq),sectionId:sec.id,wordIndex:start,startWordIndex:start,endWordIndex:end,word:phrase,selectedText:phrase,before,after,status:'pending',createdAt:new Date().toISOString(),strategy:'replace-phrase-audio-with-context-crossfade',anchorVersion:1});addMarker('retake','Replace selected text: '+phrase,sec.id,start);renderFeaturePanels();queueAutosave();notify('Replacement request saved for “'+phrase+'”. Recording and blending happen in the future audio-side workflow.')};
 
+document.querySelectorAll('[data-workspace]').forEach(button=>button.addEventListener('click',()=>{const target=button.dataset.workspace;document.querySelectorAll('.workspace-screen').forEach(screen=>screen.classList.toggle('active',screen.id===target));document.querySelectorAll('[data-workspace]').forEach(tab=>{const active=tab===button;tab.classList.toggle('active',active);tab.setAttribute('aria-pressed',String(active))})}));
 restoreAutosave();if(!sections.length)sections=[makeSection('Intro','',''),makeSection('Main content','',''),makeSection('Outro','','')];renderSections();refresh();renderFeaturePanels();$('transcriptText').value=transcriptText;sync();
 })();
 </script>
