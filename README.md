@@ -59,7 +59,7 @@ Named drafts and recovery snapshots are stored in the current browser profile us
 
 ## Completion and validation plan
 
-Named-draft settings reload, autosave settings recovery, valid mixed-feature JSON import, malformed-JSON rejection, and duplicate-section-ID rejection have been user-tested. Both invalid-import tests displayed errors and explicitly stated the current project was unchanged. JSON import validates caption timestamp syntax and positive cue duration as well as project structure. Next, validate SRT/WebVTT exports and run the full browser workflow before native integration. See the [feature completion plan](./docs/FEATURE-COMPLETION-PLAN.md) for the release checklist and audio-side handoff requirements.
+Named-draft settings reload, autosave settings recovery, valid mixed-feature JSON import, malformed-JSON rejection, duplicate-section-ID rejection, and SRT/WebVTT caption export validation have been user-tested. Both invalid-import tests displayed errors and explicitly stated the current project was unchanged. JSON import validates caption timestamp syntax and positive cue duration as well as project structure. Next, validate SRT/WebVTT exports and run the full browser workflow before native integration. See the [feature completion plan](./docs/FEATURE-COMPLETION-PLAN.md) for the release checklist and audio-side handoff requirements.
 
 ## Recommended integration order
 
