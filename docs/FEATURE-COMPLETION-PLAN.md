@@ -21,7 +21,7 @@ Scope: finish and validate the script-side experience before native Android/Wind
 - [x] User confirmed section reordering and JSON recovery keep markers and replacement requests attached to the correct section.
 - [x] Deleting a section retains its markers and replacement requests and marks them orphaned in the feature panel.
 - [x] User confirmed captions, transcript, production markers, separate cues, replacement requests, sections, and settings survive valid JSON import. [ ] Mixed-feature named-draft reload still needs explicit confirmation.
-- [ ] Manually validate WebVTT and SRT exports, including multiline text, punctuation, and timestamp formatting. Export blocks malformed timestamps, non-positive cue durations, and empty caption text; JSON import also rejects malformed caption times and non-positive durations.
+- [x] User manually confirmed WebVTT and SRT exports work with valid punctuation, special characters, and multiline text; invalid timestamps, end times at or before start times, and empty caption text correctly block export. JSON import also rejects malformed caption times and non-positive durations.
 - [ ] Check keyboard accessibility, visible focus, narrow screens, and teleprompter controls.
 - [ ] Run the complete workflow in a real browser; record the browser and test date in the release notes.
 
@@ -42,7 +42,7 @@ Scope: finish and validate the script-side experience before native Android/Wind
 2. Support editable caption cue start/end times and text.
 3. [x] Provide a configurable maximum-word caption segmentation helper (3–30 words per cue); generated timings remain labelled as estimates until audio alignment exists.
 4. [x] Validate timestamps and prevent end times earlier than or equal to start times during caption export.
-5. Export valid WebVTT and SRT; test special characters, multiline text, empty cues, and timestamp edge cases.
+5. [x] Export valid WebVTT and SRT; user confirmed punctuation, special characters, and multiline text work, while empty cues and invalid/non-positive timestamps block export.
 6. Later, attach alignment provenance (manual, estimated, or engine-aligned) to each cue.
 
 ### Stage C — Production markers and cues
