@@ -170,9 +170,9 @@ $('importFile').addEventListener('change',async e=>{
  }catch(err){notify('Import failed — current project was not changed: '+err.message)}
  finally{e.target.value=''}
 });function speed(v){$('speed').value=Math.max(10,Math.min(120,Number(v)));sync()}
-function stop(){running=false;cancelAnimationFrame(frame);$('play').textContent='▶ Start';$('runStatus').textContent='Paused · Space to play/pause · ↑/↓ speed'}
-function tick(t){if(!running)return;if(last){$('teleCopy').scrollTop+=Number($('teleSpeed').value)*(t-last)/1000}last=t;frame=requestAnimationFrame(tick)}
-function toggle(){if(!$('tele').classList.contains('open'))return;if(running){stop()}else{running=true;last=0;$('play').textContent='Ⅱ Pause';$('runStatus').textContent='Scrolling · Space to pause';frame=requestAnimationFrame(tick)}}
+function stop(){running=false;cancelAnimationFrame(frame);last=0;scrollRemainder=0;$('play').textContent='▶ Start';$('runStatus').textContent='Paused · Space to play/pause · ↑/↓ speed'}
+function tick(t){if(!running)return;if(last){scrollRemainder+=Number($('teleSpeed').value)*(t-last)/1000;const wholePixels=Math.floor(scrollRemainder);if(wholePixels>=1){$('teleCopy').scrollTop=$('teleCopy').scrollTop+wholePixels;scrollRemainder-=wholePixels}}last=t;frame=requestAnimationFrame(tick)}
+function toggle(){if(!$('tele').classList.contains('open'))return;if(running){stop()}else{running=true;last=0;scrollRemainder=0;$('play').textContent='Ⅱ Pause';$('runStatus').textContent='Scrolling · Space to pause';frame=requestAnimationFrame(tick)}}
 $('open').onclick=()=>{sync();$('tele').classList.add('open');document.body.style.overflow='hidden';$('teleCopy').scrollTop=0;populateTeleSection();$('teleCopy').focus();stop()};
 $('showCues').addEventListener('change',renderTeleprompter);
 $('teleSection').addEventListener('change',e=>jumpToSection(e.target.value));
