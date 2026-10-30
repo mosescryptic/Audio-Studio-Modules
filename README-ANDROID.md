@@ -23,7 +23,7 @@ No microphone, recording, waveform, or native audio functionality is added in th
 
 The project uses Android Gradle Plugin 9.5.0 and Kotlin Gradle Plugin 2.4.10. If your installed Gradle or Android SDK differs, adjust the versions only after checking the official compatibility table.
 
-## Build and install from a terminal
+## Build an APK using GitHub Actions (no local Android Studio required)\n\nThe branch includes a GitHub Actions workflow that builds the debug APK whenever Android project files are pushed to this branch. You can also start it manually from the **Actions** tab using **Build Android test APK** and **Run workflow**. When the run succeeds, open the run, scroll to **Artifacts**, and download `audio-studio-test-debug-apk`. Extract the ZIP to get `app-debug.apk`.\n\nOn your phone, open the APK and allow installation from the file manager/browser if Android asks. Install **Audio Studio Test**. This is a debug build for personal testing, not a Play Store release.\n\n## Build and install from a terminal
 
 From the repository root:
 
