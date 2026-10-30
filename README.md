@@ -76,3 +76,4 @@ Named-draft settings reload, autosave settings recovery, valid mixed-feature JSO
 ## Project
 
 [Audio Studio Modules repository](https://github.com/mosescryptic/Audio-Studio-Modules)
+\n## Android test wrapper\n\nA minimal Android WebView test application is being developed separately on the [`android-webview-test-app` branch](https://github.com/mosescryptic/Audio-Studio-Modules/tree/android-webview-test-app). It packages the existing script prototype for offline phone testing without changing this browser-first version. See [README-ANDROID.md](./README-ANDROID.md) for build and APK installation instructions.\n
