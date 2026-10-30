@@ -70,7 +70,7 @@
 (() => {
 const $=id=>document.getElementById(id);
 const ids=['title','script','pace','font','speed','spacing'];
-let frame=0,last=0,running=false,sectionSeq=0,sections=[],activeSectionId=null;
+let frame=0,last=0,running=false,scrollRemainder=0,sectionSeq=0,sections=[],activeSectionId=null;
 let transcriptText='',captions=[],productionMarkers=[],replacementRequests=[],selectedWord=null,markerSeq=0,captionSeq=0,replacementSeq=0;
 const key='audioStudioScriptDraftsV1';
 const autoKey='audioStudioScriptAutosaveV1';
