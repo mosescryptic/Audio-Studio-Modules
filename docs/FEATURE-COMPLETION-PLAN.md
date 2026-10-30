@@ -13,16 +13,20 @@ Scope: finish and validate the script-side experience before native Android/Wind
 - [x] JSON export/import preserves the phrase selection and request data.
 - [x] The JavaScript parses successfully.
 
+- [ ] Low-speed scrolling fix has been committed; manual verification at speeds below 50 px/s is still pending.
+
 ## Remaining validation before integration
 
 - [ ] Verify single-word replacement remains compatible with phrase replacement.
-- [x] User confirmed custom reading settings return on named-draft load and autosave recovery. [ ] Verify phrase replacement and the full mixed-feature dataset survive named-draft save/load and browser autosave recovery, not just JSON export/import.
+- [x] User confirmed custom reading settings return on named-draft load and autosave recovery.
+- [x] User confirmed the full mixed-feature dataset survives named-draft save/load and browser autosave recovery.
 - [x] Edit the source section after creating a request; narration edits mark requests stale, and the UI checks the stored text against the current range after import.
 - [x] User confirmed section reordering and JSON recovery keep markers and replacement requests attached to the correct section.
 - [x] Deleting a section retains its markers and replacement requests and marks them orphaned in the feature panel.
 - [x] User confirmed captions, transcript, production markers, separate cues, replacement requests, sections, and settings survive valid JSON import. [ ] Mixed-feature named-draft reload still needs explicit confirmation.
 - [x] User manually confirmed WebVTT and SRT exports work with valid punctuation, special characters, and multiline text; invalid timestamps, end times at or before start times, and empty caption text correctly block export. JSON import also rejects malformed caption times and non-positive durations.
 - [ ] Check keyboard accessibility, visible focus, narrow screens, and teleprompter controls.
+- [ ] Verify the low-speed teleprompter scrolling fix in a real browser at 10, 20, 30, and 45 px/s.
 - [ ] Run the complete workflow in a real browser; record the browser and test date in the release notes.
 
 ## Recommended implementation stages
